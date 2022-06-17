@@ -18,3 +18,11 @@ pip install grit
 Uh, everything is under control. Situation normal
 
 ```
+
+```python
+>>> from grit import Grit
+>>> with Grit(handlers={ValueError: print}):
+...     raise ValueError("what have you done?!")
+what have you done?!
+
+```

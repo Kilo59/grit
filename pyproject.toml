@@ -25,6 +25,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "--cov=grit --cov-report term --doctest-glob=*.md"
+log_cli_level = "info"
 
 [tool.isort]
 known_first_party = "grit"

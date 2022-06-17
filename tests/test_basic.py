@@ -1,8 +1,13 @@
 """
 tests.test_basic.py
 """
-from grit import Grit
+import logging
+
 import pytest
+
+from grit import Grit
+
+logging.basicConfig()
 
 
 @pytest.mark.parametrize(
@@ -60,6 +65,17 @@ def test_dnr_list_exception_inheritance(parent, child):
 
         with Grit(dnr_list=[parent]):
             raise child("Witness me!")
+
+
+def test_handlers():
+    def _get_exc_message(exc: Exception) -> str:
+        print("Called!")
+        return str(exc)
+
+    with Grit(handlers={ValueError: _get_exc_message}) as ctx:
+        raise ValueError("oops")
+
+    assert "oops" == ctx.result
 
 
 if __name__ == "__main__":
