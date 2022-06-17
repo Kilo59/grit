@@ -51,9 +51,9 @@ class Grit:
         pass
 
     def __exit__(self, exc_type: ExceptionType, exc_value: AnyException, exc_tb):
-        print(f"{type(exc_type)} {exc_type=}")
-        print(f"{type(exc_value)} {exc_value=}")
-        print(f"{type(exc_tb)} {exc_tb.__class__.__name__} {exc_tb=}")
+        # print(f"{type(exc_type)} {exc_type=}")
+        # print(f"{type(exc_value)} {exc_value=}")
+        # print(f"{type(exc_tb)} {exc_tb.__class__.__name__} {exc_tb=}")
         if exc_value and self.logger:
             log_traceback(exc_value, self.logger, logging.DEBUG)
 

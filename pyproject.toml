@@ -24,7 +24,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--cov=grit --cov-report term"
+addopts = "--cov=grit --cov-report term --doctest-glob=*.md"
 
 [tool.isort]
 known_first_party = "grit"
