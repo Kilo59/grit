@@ -36,10 +36,7 @@ class Grit:
         handlers: Optional[Dict[ExceptionType, Callable[[AnyException], Any]]] = None,
         logger: Optional[logging.Logger] = None,
     ) -> None:
-        if not dnr_list:
-            self.dnr_list: Tuple = tuple()
-        else:
-            self.dnr_list = tuple(dnr_list)
+        self.dnr_list = tuple(dnr_list) if dnr_list else tuple()
 
         if not logger:
             logger = GRIT_LOGGER
