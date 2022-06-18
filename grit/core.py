@@ -3,7 +3,7 @@ grit.core
 """
 import logging
 import traceback
-from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Type, Union
+from typing import Any, Callable, Dict, Optional, Sequence, Type, Union
 
 AnyException = Union[BaseException, Exception]
 
@@ -41,7 +41,7 @@ class Grit:
         if not logger:
             logger = GRIT_LOGGER
         self.logger = logger
-        self.handlers = handlers or dict()
+        self.handlers = handlers or {}
         self.exception: Optional[AnyException] = None
         self.result: Any = None
 
