@@ -51,7 +51,7 @@ jobs:
       run: poetry install -vv
 
     - name: Check if the code is correctly typed
-      run: poetry run invoke type-check
+      run: poetry run invoke types
 
     - name: Check the code quality
       run: poetry run invoke lint
