@@ -60,7 +60,8 @@ class Grit:
     ):
         if exc_value:
             # TODO: make this work with exception child types
-            exc_handler = self.handlers.get(exc_type)  # type: ignore
+            # use the fallback_handler if no other handler is found
+            exc_handler = self.handlers.get(exc_type, self.fallback_handler)  # type: ignore
             if exc_handler:
                 # TODO: log the name of the handler and deal with unnamed functions (lambdas)
                 self.logger.info(
@@ -70,9 +71,6 @@ class Grit:
                 # appropriately
                 # https://docs.python.org/3/library/inspect.html
                 self.result = exc_handler(exc_value)
-            # use the fallback_handler if no other handler is found
-            elif self.fallback_handler:
-                self.result = self.fallback_handler(exc_value)
 
         if isinstance(exc_value, self.dnr_list):
             # Returning False will cause the original exception to be propogated up
