@@ -78,5 +78,42 @@ def test_handlers():
     assert "oops" == ctx.result
 
 
+def _raise_runtime_error(exc: Exception):
+    raise RuntimeError("raised from _raise_runtime_error") from exc
+
+
+@pytest.mark.parametrize(
+    "dnr_list,handlers,exc_to_raise,expected_exception,exp_result",
+    [
+        (
+            # ZeroDivision is dnr but the ZeroDivisionError handler is called before
+            # original error is propogated and so the error that propgates should be
+            # a RunTimeError raised by the handler function
+            [ZeroDivisionError],
+            {ZeroDivisionError: _raise_runtime_error},
+            ZeroDivisionError,
+            RuntimeError,
+            None,
+        ),
+        (
+            [ZeroDivisionError],
+            {ZeroDivisionError: lambda x: str(x)},
+            ZeroDivisionError("whoops"),
+            ZeroDivisionError,
+            "whoops",
+        ),
+    ],
+)
+def test_exc_propagation(
+    dnr_list, handlers, exc_to_raise, expected_exception, exp_result
+):
+    with pytest.raises(expected_exception):
+        with Grit(dnr_list=dnr_list, handlers=handlers) as grt:
+            raise exc_to_raise
+
+    print(grt)
+    assert exp_result == grt.result
+
+
 if __name__ == "__main__":
     pytest.main(["-vv"])

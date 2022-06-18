@@ -8,6 +8,7 @@ from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Type, Union
 AnyException = Union[BaseException, Exception]
 
 ExceptionType = Type[Exception]
+# ExceptionType = Union[Type[Exception], Type[BaseException]]
 
 GRIT_LOGGER = logging.getLogger("grit")
 
