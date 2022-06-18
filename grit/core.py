@@ -55,9 +55,7 @@ class Grit:
         if exc_value:
             log_traceback(exc_value, self.logger, logging.DEBUG)
 
-        # TODO: make this work with exeception child types
-        exc_handler = self.handlers.get(exc_type)
-        if exc_handler:
+        if exc_handler := self.handlers.get(exc_type):
             # TODO: log the name of the handler and deal with unnamed functions (lambdas)
             self.logger.info(f"Ecountered {exc_type} handling ...")
             # TODO: inspect to determine if handler takes arguments/no args and treat it
