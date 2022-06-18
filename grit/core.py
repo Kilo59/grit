@@ -30,40 +30,49 @@ def log_traceback(ex: AnyException, logger: logging.Logger, level: int):
 class Grit:
     """Grit context manager for dealing with exceptions less badly."""
 
+    def log_debug_traceback(self, ex: AnyException):
+        """Log a full stacktrace at the DEBUG level."""
+        self.logger.debug(format_traceback(ex))
+
     def __init__(
         self,
         dnr_list: Optional[Union[Sequence[AnyException], Sequence]] = None,
         handlers: Optional[Dict[ExceptionType, Callable[[AnyException], Any]]] = None,
-        logger: Optional[logging.Logger] = None,
+        fallback_handler: Optional[Callable[[AnyException], Any]] = None,
+        logger: logging.Logger = GRIT_LOGGER,
     ) -> None:
         self.dnr_list = tuple(dnr_list) if dnr_list else tuple()
 
-        if not logger:
-            logger = GRIT_LOGGER
         self.logger = logger
         self.handlers = handlers or {}
         self.exception: Optional[AnyException] = None
+        self.fallback_handler = fallback_handler or self.log_debug_traceback
         self.result: Any = None
 
     def __enter__(self) -> "Grit":
         return self
 
-    def __exit__(self, exc_type: ExceptionType, exc_value: AnyException, exc_tb):
-        # print(f"{type(exc_type)} {exc_type=}")
-        # print(f"{type(exc_value)} {exc_value=}")
-        # print(f"{type(exc_tb)} {exc_tb.__class__.__name__} {exc_tb=}")
+    def __exit__(
+        self,
+        exc_type: Optional[ExceptionType],
+        exc_value: Optional[AnyException],
+        exc_tb,
+    ):
         if exc_value:
-            log_traceback(exc_value, self.logger, logging.DEBUG)
-
-        # TODO: make this work with exception child types
-        exc_handler = self.handlers.get(exc_type)
-        if exc_handler:
-            # TODO: log the name of the handler and deal with unnamed functions (lambdas)
-            self.logger.info(f"Encountered {exc_type} handling with {exc_handler} ...")
-            # TODO: inspect to determine if handler takes arguments/no args and treat it
-            # appropriately
-            # https://docs.python.org/3/library/inspect.html
-            self.result = exc_handler(exc_value)
+            # TODO: make this work with exception child types
+            exc_handler = self.handlers.get(exc_type)  # type: ignore
+            if exc_handler:
+                # TODO: log the name of the handler and deal with unnamed functions (lambdas)
+                self.logger.info(
+                    f"Encountered {exc_type} handling with {exc_handler} ..."
+                )
+                # TODO: inspect to determine if handler takes arguments/no args and treat it
+                # appropriately
+                # https://docs.python.org/3/library/inspect.html
+                self.result = exc_handler(exc_value)
+            # use the fallback_handler if no other handler is found
+            elif self.fallback_handler:
+                self.result = self.fallback_handler(exc_value)
 
         if isinstance(exc_value, self.dnr_list):
             # Returning False will cause the original exception to be propogated up
