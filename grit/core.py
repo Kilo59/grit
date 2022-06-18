@@ -48,7 +48,7 @@ class Grit:
         self.exception: Optional[AnyException] = None
         self.result: Any = None
 
-    def __enter__(self):
+    def __enter__(self) -> "Grit":
         return self
 
     def __exit__(self, exc_type: ExceptionType, exc_value: AnyException, exc_tb):
@@ -75,3 +75,12 @@ class Grit:
             return False
         # Returning True swallows the original exception
         return True
+
+    def __repr__(self) -> str:
+        dnr_list = ", ".join((e.__name__ for e in self.dnr_list))
+        handlers = ", ".join(
+            (f"{e.__name__}: {fn.__name__}" for e, fn in self.handlers.items())
+        )
+        return (
+            f"{self.__class__.__name__}(dnr_list=[{dnr_list}], handlers={{{handlers}}})"
+        )
