@@ -59,7 +59,7 @@ class Grit:
         exc_handler = self.handlers.get(exc_type)
         if exc_handler:
             # TODO: log the name of the handler and deal with unnamed functions (lambdas)
-            self.logger.info("Encountered %s handling ..." % exc_type)
+            self.logger.info(f"Encountered {exc_type} handling with {exc_handler} ...")
             # TODO: inspect to determine if handler takes arguments/no args and treat it
             # appropriately
             # https://docs.python.org/3/library/inspect.html
