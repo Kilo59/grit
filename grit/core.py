@@ -61,10 +61,7 @@ class Grit:
         exc_tb,
     ):
         if exc_value:
-            # TODO: make this work with exception child types
-            # use the fallback_handler if no other handler is found
-            exc_handler = self.handlers.get(exc_type, self.fallback_handler)  # type: ignore
-            if exc_handler:
+            if exc_handler := self.handlers.get(exc_type, self.fallback_handler):
                 # TODO: log the name of the handler and deal with unnamed functions (lambdas)
                 self.logger.info(
                     f"Encountered {exc_type} handling with {exc_handler} ..."
