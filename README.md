@@ -1,8 +1,8 @@
 # grit
 
 [![ci](https://github.com/Kilo59/grit/workflows/ci/badge.svg)](https://github.com/Kilo59/grit/actions)
-[![pypi version](https://img.shields.io/pypi/v/grit.svg)](https://pypi.org/project/grit/)
-![Python Versions](https://img.shields.io/pypi/pyversions/grit)
+[![pypi version](https://img.shields.io/pypi/v/grit.svg)](https://pypi.org/project/py-grit/)
+![Python Versions](https://img.shields.io/pypi/pyversions/py-grit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 Context manager for shrugging off exceptions less badly.
@@ -33,7 +33,7 @@ with Grit():
 ## Quick start
 
 ```
-pip install grit
+pip install py-grit
 ```
 
 ```python

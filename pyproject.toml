@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "grit"
-version = "0.0.1a"
+name = "py-grit"
+version = "0.0.1a1"
 description = "Exception handling context manager."
 authors = ["Gabriel Gore <gabriel59kg@gmail.com>"]
 license = "MIT"
@@ -16,6 +16,7 @@ classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+packages = [ { include = "grit" } ]
 
 [tool.poetry.dependencies]
 python = "^3.7.2"
