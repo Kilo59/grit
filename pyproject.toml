@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "grit"
+version = "0.0.1a"
+description = "Exception handling context manager."
+authors = ["Gabriel Gore <gabriel59kg@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/kilo59/grit"
+homepage = "https://github.com/kilo59/grit"
+keywords = ["context-managers", "errors"]
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 2 - Pre-Alpha",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+pytest-icdiff = "^0.5"
+invoke = "^1.7.1"
+black = "^22.3.0"
+isort = "^5.10.1"
+pylint = "^2.14.2"
+mypy = "^0.961"
+types-invoke = "^1.6.8"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "--cov=grit --cov-report term --doctest-glob=*.md"
+log_cli_level = "info"
+
+[tool.isort]
+known_first_party = "grit"
+profile = "black"
+skip_gitignore = true
+
+[tool.pylint."messages control"]
+# Only show warnings with the listed confidence levels. Leave empty to show all.
+# Valid levels: HIGH, CONTROL_FLOW, INFERENCE, INFERENCE_FAILURE, UNDEFINED.
+confidence = ["HIGH", "CONTROL_FLOW", "INFERENCE", "INFERENCE_FAILURE", "UNDEFINED"]
+
+# Disable the message, report, category or checker with the given id(s). You can
+# either give multiple identifiers separated by comma (,) or put this option
+# multiple times (only on the command line, not in the configuration file where
+# it should appear only once). You can also use "--disable=all" to disable
+# everything first and then re-enable specific checks. For example, if you want
+# to run only the similarities checker, you can use "--disable=all
+# --enable=similarities". If you want to run only the classes checker, but have
+# no Warning level messages displayed, use "--disable=all --enable=classes
+# --disable=W".
+disable = ["raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message",
+"useless-suppression", "deprecated-pragma", "use-symbolic-message-instead", "logging-fstring-interpolation"]
