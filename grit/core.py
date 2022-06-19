@@ -26,6 +26,8 @@ def log_traceback(ex: AnyException, logger: logging.Logger, level: int):
 
 # pylint: disable=fixme
 
+# TODO: call async or standard sync handlers
+
 
 class Grit:
     """Grit context manager for dealing with exceptions less badly."""

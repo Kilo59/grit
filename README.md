@@ -27,7 +27,7 @@ except Exception:
 ```python
 from grit import Grit
 
-# Full exceptions stacktrace is automatically logged
+# Full exception stacktrace is automatically logged
 with Grit():
     foobar()
 ```
@@ -47,7 +47,7 @@ Uh, everything is under control. Situation normal
 
 ```
 
-Propagate the errors you care about.
+Propagate the errors you care about, while ignoring the ones you don't.
 
 ```python
 >>> from grit import Grit
