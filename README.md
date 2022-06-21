@@ -74,7 +74,7 @@ what have you done?!
 
 By default the `fallback_handler` will log a full exception traceback at the debug level using `self.logger`.
 
-To change this behavior, provide your own `fallback_handler` or explicitly set it a `None`.
+To change this behavior, provide your own `fallback_handler`.
 
 ```python
 >>> from grit import Grit
