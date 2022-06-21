@@ -9,7 +9,7 @@ Context manager for shrugging off exceptions less badly.
 
 Subtitle: exception handling for lazy people.
 
-## Description and Rational
+## Description and Rationale
 
 Does your code suffer from an overuse of bare exceptions?
 
