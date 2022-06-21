@@ -43,6 +43,24 @@ class Grit:
         fallback_handler: Optional[Callable[[AnyException], Any]] = None,
         logger: logging.Logger = GRIT_LOGGER,
     ) -> None:
+        """
+        Parameters
+        ----------
+        dnr_list
+            Sequence of exceptions that should not be ignored.
+            `Grit` will call the `fallback_handler` function and then propagate these
+            exceptions (and children) if encountered.
+            by default `None`
+        handlers
+            Mapping of `Exception` to handler functions. Function will be passed the
+            exception instance. Function return value will be saved to `self.result`.
+            by default None
+        fallback_handler
+            Function to call if not specific handler is found.
+            by default `self.log_debug_traceback`
+        logger
+            logger used be Grit. by default GRIT_LOGGER
+        """
         self.dnr_list = tuple(dnr_list) if dnr_list else tuple()
 
         self.logger = logger
