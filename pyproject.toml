@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-grit"
-version = "0.0.1a1"
+version = "0.0.1a2"
 description = "Exception handling context manager."
 authors = ["Gabriel Gore <gabriel59kg@gmail.com>"]
 license = "MIT"
